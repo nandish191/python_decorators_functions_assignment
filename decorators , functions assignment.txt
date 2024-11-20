@@ -1,0 +1,154 @@
+def fun1():
+    print("hello world")
+def fun2(d):
+    print("hollo john")
+    d()
+fun2(fun1)        
+
+def add(a,b):
+    print(a+b)
+def sub(a,b):
+    print(a-b)
+def fun(d,a,b):
+    d(a,b)
+
+fun(add,1,2)        
+fun(sub,5,3)
+
+# nested function
+def outer(x):
+    def inner(y):
+        return x+y
+    return inner
+
+add=outer(5)
+result=add(10)
+print(result)
+
+passing list as n arg for nested function
+def fun1(l1=[]):
+    def fun2(l2=[]):
+        return l1+l2
+    return fun2
+
+a=[1,2,3,4]
+b=[11,22,33,44]
+
+concat=fun1(a)
+result=concat(b)
+print(result)
+
+#  check even and odd no from a list using nested function
+
+def odd(l=[]):
+    for ele in l:
+        if ele%2==0:
+            print("even :", ele)
+            def even(l=[]):
+                for ele in l:
+                    if ele%2!=0:
+                        print("odd :", ele)
+            return even
+
+a=[1,2,3,4,5,6,7,8,9,10]
+x=odd(a)
+print(x)
+result=x(a)
+print(result)
+
+
+def fun1(a):
+    if isinstance(a, str):
+        print(a,a[::-1])
+    else:
+        return a    
+def fun2(d,a):
+    return d(a)
+
+r=fun2(fun1, "ravi")       
+
+# check weather it is palindrome or not using fun as arg
+def palindrome(a):
+    if a==a[::-1]:
+        return "palindrome", a
+    else:
+        return "not a palindrome"    
+def fun(d,a):
+    return d(a)
+
+result=fun(palindrome,"eye")
+print(result)            
+
+# Return function as value
+def fun1(l=[]):
+    def fun2():
+        for ele in l:
+            if isinstance(ele, str):
+                print(ele)
+                
+
+li=[1,"hello",2,3,4,5,"java", "python"]                    
+
+r=fun1(li)
+print(r)
+
+def greet(name):
+    def hello():
+        return "hello ,"+name
+    return hello
+
+result=greet("nandish")
+print(result())        
+
+def mak_pretty(func):
+    def inner():
+        print("i got decorated")
+        func()
+    return inner
+
+def ordinary():
+    print("i am oridinary")
+
+dec_fun=mak_pretty(ordinary)
+print(dec_fun())
+
+# normal function
+def devide(a,b):
+    if b==0:
+        return "not possible to devide"
+    else:
+        print(a/b)
+
+r=devide(4,2)                  
+
+def smart_dev(fun):
+    def inner(a,b):
+        if b==0:
+            print("cannot devide with 0")
+        return fun(a,b)       
+    return inner
+
+@smart_dev
+def divide(a,b):
+    print(a/b)
+
+r=divide(4,2)            
+r=divide(2,0)
+
+
+# check weather it is positive or negtive no using decorators
+def main_fun(fun):
+    def inner_fun(a):
+        if a <0:
+            print("negetive no :",a )
+            return
+        return fun(a)
+    return inner_fun
+
+@main_fun
+def check(a):
+    print(a>0, "positive no", a)    
+    return a
+
+r=check(-1)
+r=check(100)
